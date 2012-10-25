@@ -9,19 +9,19 @@ A collection of small plugins for [Trigger](http://www.trigger.io) developed pri
 
 forge.internal.call('contextmenu.show',
 {
-    items:[*string1*,*string2*,...]
+    items:[_string1_,_string2_,...]
 },
 *successCallback*
 );
 
 Creates a native context menu and returns the string of the selected item to the success handler.
 
-<h2>Key board</h2>
+<h2>Keyboard</h2>
 Developed primarily as a workaround for this bug: http://code.google.com/p/android/issues/detail?id=15245
 
 forge.internal.call('keyboard.typestring',
 {
-    input:*string*
+    input:_string_
 })
 
 Types the given string by simulating virtual keyboard events
