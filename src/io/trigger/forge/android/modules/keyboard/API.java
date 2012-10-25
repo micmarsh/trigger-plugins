@@ -14,14 +14,11 @@ public class API {
 		final Activity activity = ForgeApp.getActivity();
 		final KeyEvent[] events = map.getEvents(input.toCharArray());
 		activity.runOnUiThread(new Runnable(){
-
 			@Override
 			public void run() {
 				for(KeyEvent e : events)
 					activity.dispatchKeyEvent(e);
-				
 			}
-			
 		});
 		
 	}
