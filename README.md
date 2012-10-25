@@ -9,7 +9,7 @@ A collection of small plugins for [Trigger](http://www.trigger.io) developed pri
 
 forge.internal.call('contextmenu.show',
 {
-    items:[_string1_,_string2_,...]
+    items:[<i>string1</i>,<i>string2</i>,...]
 },
 *successCallback*
 );
@@ -21,7 +21,7 @@ Developed primarily as a workaround for this bug: http://code.google.com/p/andro
 
 forge.internal.call('keyboard.typestring',
 {
-    input:_string_
+    input:<i>string</i>
 })
 
 Types the given string by simulating virtual keyboard events
