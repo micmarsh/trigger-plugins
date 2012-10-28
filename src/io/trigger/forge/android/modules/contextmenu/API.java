@@ -37,8 +37,6 @@ public class API {
 		for(int i = 0; i < toRet.length; i++)
 			toRet[i] = array.getString(i);
 		return toRet;
-			
-			
 	}
 			
 	public static void show(final ForgeTask task, @ForgeParam("items") final JSONArray JSONItems) throws JSONException{
