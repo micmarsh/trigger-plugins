@@ -48,8 +48,7 @@ public class API {
 	
 	public static void show(final ForgeTask task){
 		ForgeActivity activity = ForgeApp.getActivity();
-		final WebView webView = activity.webView;
 		InputMethodManager mgr = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        mgr.showSoftInput(webView, InputMethodManager.SHOW_IMPLICIT);
+        mgr.showSoftInput(activity.webView, InputMethodManager.SHOW_IMPLICIT);
 	}
 }
