@@ -31,6 +31,10 @@ public class API {
 	public static void typestring(final ForgeTask task, @ForgeParam("input") final String input){
 		final ForgeActivity activity = ForgeApp.getActivity();
 		final KeyEvent[] events = map.getEvents(input.toCharArray());
+		
+		InputMethodManager mgr = getKeyboard(activity);
+		mgr.displayCompletions(activity.webView, null);
+		
 		activity.runOnUiThread(new Runnable(){
 			@Override
 			public void run() {
@@ -43,7 +47,12 @@ public class API {
 	
 	public static void show(final ForgeTask task){
 		ForgeActivity activity = ForgeApp.getActivity();
-		InputMethodManager mgr = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+		InputMethodManager mgr = getKeyboard(activity);
         mgr.showSoftInput(activity.webView, InputMethodManager.SHOW_IMPLICIT);
+       
+	}
+	
+	private static InputMethodManager getKeyboard(ForgeActivity activity){
+		return (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 	}
 }
