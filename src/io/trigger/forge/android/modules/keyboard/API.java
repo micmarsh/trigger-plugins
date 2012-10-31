@@ -19,9 +19,16 @@ import io.trigger.forge.android.core.ForgeActivity;
 import io.trigger.forge.android.core.ForgeApp;
 import io.trigger.forge.android.core.ForgeParam;
 import io.trigger.forge.android.core.ForgeTask;
-import android.app.Activity;
+import android.content.Context;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 
 public class API {
 	public static KeyCharacterMap map = KeyCharacterMap.load(KeyCharacterMap.VIRTUAL_KEYBOARD);
@@ -37,5 +44,12 @@ public class API {
 			}
 		});
 
+	}
+	
+	public static void show(final ForgeTask task){
+		ForgeActivity activity = ForgeApp.getActivity();
+		final WebView webView = activity.webView;
+		InputMethodManager mgr = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.showSoftInput(webView, InputMethodManager.SHOW_IMPLICIT);
 	}
 }
