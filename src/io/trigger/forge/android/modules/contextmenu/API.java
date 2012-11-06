@@ -28,6 +28,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 
 public class API {
@@ -40,7 +41,8 @@ public class API {
 	}
 			
 	public static void show(final ForgeTask task, @ForgeParam("items") final JSONArray JSONItems) throws JSONException{
-		final AlertDialog.Builder builder = new AlertDialog.Builder(ForgeApp.getActivity());
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				new ContextThemeWrapper(ForgeApp.getActivity(), android.R.style.Theme_Holo));
 		final String[] items = toJavaArray(JSONItems);
 		builder.setItems(items, new OnClickListener(){
 			@Override
