@@ -46,12 +46,16 @@ public class API {
 	}
 	
 	public static void show(final ForgeTask task){
-		ForgeActivity activity = ForgeApp.getActivity();
-		InputMethodManager mgr = getKeyboard(activity);
-        mgr.showSoftInput(activity.webView, InputMethodManager.SHOW_IMPLICIT);
-       
+		try{
+			ForgeActivity activity = ForgeApp.getActivity();
+			InputMethodManager mgr = getKeyboard(activity);
+	        mgr.showSoftInput(activity.webView, InputMethodManager.SHOW_FORCED);
+	        task.success();
+		}catch(Exception e){
+			task.error(e);
+		}
 	}
-	
+		
 	private static InputMethodManager getKeyboard(ForgeActivity activity){
 		return (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 	}
