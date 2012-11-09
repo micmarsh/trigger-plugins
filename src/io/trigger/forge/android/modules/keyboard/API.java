@@ -23,37 +23,49 @@ import io.trigger.forge.android.core.ForgeTask;
 import android.content.Context;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 
 public class API {
 	public static KeyCharacterMap map = KeyCharacterMap.load(KeyCharacterMap.VIRTUAL_KEYBOARD);
+	private final static WebView webview = ForgeApp.getActivity().webView;
+	private final static OnTouchListener KEYBOARD_LISTENER = new OnTouchListener(){
 
-	public static void typestring(final ForgeTask task, @ForgeParam("input") final String input){
-		final ForgeActivity activity = ForgeApp.getActivity();
-		final KeyEvent[] events = map.getEvents(input.toCharArray());
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			show();
+			return false;
+		}
 		
-		InputMethodManager mgr = getKeyboard(activity);
-		mgr.displayCompletions(activity.webView, null);
-		
-		activity.runOnUiThread(new Runnable(){
-			@Override
-			public void run() {
-				for(KeyEvent e : events)
-					activity.dispatchKeyEvent(e);
-			}
-		});
-
+	};
+	
+	public static void stick(final ForgeTask task){
+		webview.setOnTouchListener(KEYBOARD_LISTENER);
+		task.success();
+	}
+	
+	public static void unstick(final ForgeTask task){
+		webview.setOnTouchListener(null);
+		task.success();
 	}
 	
 	public static void show(final ForgeTask task){
 		try{
-			ForgeActivity activity = ForgeApp.getActivity();
-			InputMethodManager mgr = getKeyboard(activity);
-	        mgr.showSoftInput(activity.webView, InputMethodManager.SHOW_FORCED);
+			show();
 	        task.success();
 		}catch(Exception e){
 			task.error(e);
 		}
+	}
+	
+	public static void show(){
+			ForgeActivity activity = ForgeApp.getActivity();
+			InputMethodManager mgr = getKeyboard(activity);
+	        mgr.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+	   
 	}
 		
 	private static InputMethodManager getKeyboard(ForgeActivity activity){
