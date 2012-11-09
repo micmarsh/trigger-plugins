@@ -31,24 +31,28 @@ import android.webkit.WebView;
 
 public class API {
 	public static KeyCharacterMap map = KeyCharacterMap.load(KeyCharacterMap.VIRTUAL_KEYBOARD);
-	private final static WebView webview = ForgeApp.getActivity().webView;
-	private final static OnTouchListener KEYBOARD_LISTENER = new OnTouchListener(){
-
+	private static class StickyListener implements OnTouchListener{
+		private ForgeTask task;
+		public StickyListener setTask(ForgeTask task){
+			this.task = task;
+			return this;
+		}
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
-			show();
+			io.trigger.forge.android.modules.keyboard.API.show(task);
 			return false;
 		}
-		
-	};
+	}
+	
+	private final static StickyListener KEYBOARD_LISTENER = new StickyListener();
 	
 	public static void stick(final ForgeTask task){
-		webview.setOnTouchListener(KEYBOARD_LISTENER);
+		ForgeApp.getActivity().webView.setOnTouchListener(KEYBOARD_LISTENER.setTask(task));
 		task.success();
 	}
 	
 	public static void unstick(final ForgeTask task){
-		webview.setOnTouchListener(null);
+		ForgeApp.getActivity().webView.setOnTouchListener(null);
 		task.success();
 	}
 	
