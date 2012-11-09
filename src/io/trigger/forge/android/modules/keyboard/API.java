@@ -39,7 +39,7 @@ public class API {
 		}
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
-			io.trigger.forge.android.modules.keyboard.API.show(task);
+			show(task);
 			return false;
 		}
 	}
@@ -47,13 +47,21 @@ public class API {
 	private final static StickyListener KEYBOARD_LISTENER = new StickyListener();
 	
 	public static void stick(final ForgeTask task){
-		ForgeApp.getActivity().webView.setOnTouchListener(KEYBOARD_LISTENER.setTask(task));
-		task.success();
+		try{
+			ForgeApp.getActivity().webView.setOnTouchListener(KEYBOARD_LISTENER.setTask(task));
+			task.success();
+		}catch(Exception e){
+			task.error(e);
+		}
 	}
 	
 	public static void unstick(final ForgeTask task){
-		ForgeApp.getActivity().webView.setOnTouchListener(null);
-		task.success();
+		try{
+			ForgeApp.getActivity().webView.setOnTouchListener(null);
+			task.success();
+		}catch(Exception e){
+			task.error(e);
+		}
 	}
 	
 	public static void show(final ForgeTask task){
