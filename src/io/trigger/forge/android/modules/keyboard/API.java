@@ -26,6 +26,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 
@@ -51,6 +52,7 @@ public class API {
 			ForgeApp.getActivity().webView.setOnTouchListener(KEYBOARD_LISTENER.setTask(task));
 			task.success();
 		}catch(Exception e){
+			e.printStackTrace();
 			task.error(e);
 		}
 	}
@@ -60,6 +62,7 @@ public class API {
 			ForgeApp.getActivity().webView.setOnTouchListener(null);
 			task.success();
 		}catch(Exception e){
+			e.printStackTrace();
 			task.error(e);
 		}
 	}
@@ -74,13 +77,19 @@ public class API {
 	}
 	
 	public static void show(){
-			ForgeActivity activity = ForgeApp.getActivity();
-			InputMethodManager mgr = getKeyboard(activity);
+			InputMethodManager mgr = getKeyboard();
 	        mgr.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
-	   
+	}
+	
+	public static void hide(){
+		InputMethodManager mgr = getKeyboard();
+	    mgr.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+		//ForgeApp.getActivity().getWindow().setSoftInputMode(
+		//	      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 		
-	private static InputMethodManager getKeyboard(ForgeActivity activity){
+	private static InputMethodManager getKeyboard(){
+		ForgeActivity activity = ForgeApp.getActivity();
 		return (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 	}
 }
